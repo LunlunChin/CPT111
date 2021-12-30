@@ -8,18 +8,19 @@ void hospitalstayMenu(int&);
 void surgeryMenu(int&);
 void medicineyMenu(int&);
 void serviceMenu(int&,int&);
-void displayCharge(int, int, int, int, int);
+void displayCharge(int, int, int, int, int, int);
+void foodMenu(int&);
 
 
 int main()
 {
-	int choice, totalHospital = 0 , totalSurgery = 0, totalMedicine = 0, totalServices = 0, numServices=0;
+	int choice, totalHospital = 0 , totalSurgery = 0, totalMedicine = 0, totalServices = 0, numServices=0 , totalFood=0;
 	string name;
 	long long int id;
 
-	cout << "Patient Name: ";
+	cout << "Patient Name: ";   //User input name
 	getline(cin, name);
-	cout << "Patient ID Num: ";
+	cout << "Patient ID Num: ";	//User input Patient ID
 	cin >> id;
 
 	do 
@@ -27,26 +28,30 @@ int main()
 		showMenu();
 		cin >> choice;
 
-		switch (choice)
+		switch (choice)   		// Informative menu for user
 		{
 		case 1:
-			hospitalstayMenu(totalHospital);
+			hospitalstayMenu(totalHospital);  //Menu 1 --> Hospital stay charges function call
 			break;
 		case 2:
-			surgeryMenu(totalSurgery);
+			surgeryMenu(totalSurgery);	//Menu 2 --> Surgery charges function call
 			break;
 		case 3:
-			medicineyMenu(totalMedicine);
+			medicineyMenu(totalMedicine);	//Menu 3 --> Pharmacy charges function call
 			break;
 		case 4:
-			serviceMenu(totalServices, numServices);
+			serviceMenu(totalServices, numServices);	//Menu 4 --> Service charges function call
 			break;
+
+		case 5:
+			 foodMenu(totalFood); //Menu 5 --> Food charges
+			 break;
 		case 0:
 			cout << endl << "Name: " << name << "\nID Num: " << id << endl;
-			displayCharge(totalHospital, totalSurgery, totalMedicine, numServices ,totalServices);
+			displayCharge(totalHospital, totalSurgery, totalMedicine, numServices ,totalServices, totalFood);
 			break;
 		default:
-			cout << "Invalid Choice Please Enter Your Choice Again." << endl;
+			cout << "Invalid Choice Please Enter Your Choice Again." << endl; //Invalid Input
 			break;
 		}
 	} while (choice != 0);
@@ -63,10 +68,11 @@ void showMenu()
 	cout << endl << endl;
 
 	cout << "\t\t\t\tTYPE OF CHARGE" << endl << endl;
-	cout << "1. Hospital Stay Charge\n2. Surgery Charge\n3. Medication Charge\n4. Services Charge\n0. Calculaate Total" << endl << endl;
+	cout << "1. Hospital Stay Charge\n2. Surgery Charge\n3. Medication Charge\n4. Services Charge\n5. Food Charges\n0. Calculate Total" << endl << endl;
 	cout << "Choice: ";
 }
 
+//Hospital stay charges menu function
 void hospitalstayMenu(int & chargeStay)
 {
 
@@ -84,9 +90,9 @@ void hospitalstayMenu(int & chargeStay)
 
 	do
 	{
-		cout << "What room have patient take: ";
+		cout << "What room have patient take: "; //User input room type
 		cin >> choice1;
-		cout << "How many day patient stay: ";
+		cout << "How many day patient stay: ";	//User input number of days spent in hospital
 		cin >> day;
 
 		switch (choice1)
@@ -114,7 +120,7 @@ void hospitalstayMenu(int & chargeStay)
 	cout << endl;
 }
 
-
+//Surgery charges menu function
 void surgeryMenu(int& chargeSurgery)
 {
 
@@ -132,7 +138,7 @@ void surgeryMenu(int& chargeSurgery)
 
 	do
 	{
-		cout << "What surgery have patient take: ";
+		cout << "What surgery have patient take: "; //User input surgery type
 		cin >> choice2;
 
 		switch (choice2)
@@ -163,7 +169,7 @@ void surgeryMenu(int& chargeSurgery)
 	cout << endl;
 }
 
-
+//Pharmacy charges menu function (at least 5 types of medication)
 void medicineyMenu(int& chargeMedicine) 
 {
 
@@ -181,9 +187,9 @@ void medicineyMenu(int& chargeMedicine)
 
 	do
 	{
-		cout << "What medicine have patient take: ";
+		cout << "What medicine have patient take: "; //User input medicine type
 		cin >> choice3;
-		cout << " Quantity: ";
+		cout << " Quantity: ";		//User input quantity of medicine
 		cin >> quantity;
 
 		switch (choice3)
@@ -214,6 +220,7 @@ void medicineyMenu(int& chargeMedicine)
 	cout << endl;
 }
 
+//Service charges menu function
 void serviceMenu(int& chargeService, int& Services)
 {
 
@@ -231,7 +238,7 @@ void serviceMenu(int& chargeService, int& Services)
 
 	do
 	{
-		cout << "What service have patient take: ";
+		cout << "What service have patient take: "; //User input services taken
 		cin >> choice4;
 
 		switch (choice4)
@@ -255,7 +262,7 @@ void serviceMenu(int& chargeService, int& Services)
 			chargeService += 5700;
 			break;
 		default:
-			cout << endl << "Invalid Choice Please Enter Your Choice Again." << endl ;
+			cout << endl << "Invalid Choice Please Enter Your Choice Again." << endl ; //Error output
 			break;
 		}
 	} while (choice4 < 1 || choice4 > 6);
@@ -263,15 +270,67 @@ void serviceMenu(int& chargeService, int& Services)
 	cout << endl;
 }
 
-void displayCharge(int charge1, int charge2, int charge3, int numServices, int charge4) 
+//Food charges
+void foodMenu(int& foodService)
+{
+
+	int choice6 = 0;
+
+	cout << "\t\t\t\tFood Charge " << endl;
+
+	for (int i = 0; i < 100; i++)
+	{
+		cout << "-";
+	}
+	cout << endl << endl;
+
+	cout << "1.	banana			$3\n2.	Cookie			$3\n3.	Apple			$5\n4.	orange Juice		$6\n5.	Roti			$2\n6.	Big Bowl Salad		$9" << endl << endl;
+
+	do
+	{
+		cout << "What food have patient take: "; //User input food charges
+		cin >> choice6;
+
+		switch (choice6)
+		{
+		case 1:
+			foodService += 3;
+			break;
+		case 2:
+			foodService += 3;
+			break;
+		case 3:
+			foodService += 5;
+			break;
+		case 4:
+			foodService+= 6;
+			break;
+		case 5:
+			foodService += 2;
+			break;
+		case 6:
+			foodService += 9;
+			break;
+		default:
+			cout << endl << "Invalid Choice Please Enter Your Choice Again." << endl ; //Error output
+			break;
+		}
+	} while (choice6 < 1 || choice6 > 6);
+	
+	cout << endl;
+}
+
+//Total charges menu function
+void displayCharge(int charge1, int charge2, int charge3, int numServices, int charge4,int charge6) 
 {
 	if (charge1 > 0)
-		cout << "Hostpital Stay Charge: $ " << charge1 << endl;
+		cout << "Hostpital Stay Charge + Food Charges: $ " << charge1+charge6 << endl;
 	if (charge2 > 0)
 		cout << "Surgery Charge: $ " << charge2 << endl;
 	if (charge3 > 0)
 		cout << "Medicine Charge:" <<numServices<<" Services $" << charge3 << endl;
 	if (charge4 > 0)
 		cout << "Services Stay Charge: $ " << charge4 << endl;
-	cout << "The Total Charge is $ " << charge1 + charge2 + charge3 + charge4 << endl;
+	cout << "The Total Charge is $ " << charge1 + charge2 + charge3 + charge4 +charge6 << endl; // charges added up and displayed
+	
 }
