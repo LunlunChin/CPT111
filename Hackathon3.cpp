@@ -371,7 +371,7 @@ void foodMenu(int& foodService)
 void displayCharge(int charge1, int charge2, int charge3, int numServices, int charge4, int charge5)
 {
 
-	cout << endl;
+	cout << endl;//hjhj
 
 	//check whether there is Hospital Stay Charges and display Hospital stay charge
 	if (charge1 > 0)
