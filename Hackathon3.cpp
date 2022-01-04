@@ -383,7 +383,7 @@ void displayCharge(int charge1, int charge2, int charge3, int numServices, int c
 
 	//check whether there is Medicine Charges and display medicine charge
 	if (charge3 > 0)
-		cout << "Medicine Charge:" << numServices << " Services $" << charge3 << endl;
+		cout << "Medicine Charge:" << charge3 << endl;
 
 	//check whether there is Services Charges and display sercies charge
 	if (charge4 > 0)
