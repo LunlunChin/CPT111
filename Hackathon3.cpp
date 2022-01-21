@@ -18,22 +18,14 @@ void reset(int&, int&, int&, int&, int&, int&);
 
 int main()
 {
-	//Declare and initialize variable to hold some charge
-	int choice, totalHospital, totalSurgery, totalMedicine, totalServices, numServices, totalFood;
-
-	//name to hold name of patient
-	string name;
-
-	//id to hold patient id number
-	long long int id;
-
+	int choice, totalHospital, totalSurgery, totalMedicine, totalServices, numServices, totalFood;//Declare and initialize variable to hold some charge 
+	string name; 		//name to hold name of patient
+	long long int id;  //id to hold patient id number
 	char pass = 'Y';
 
-	do
-	{
+	while (pass == 'Y' || pass == 'y'){
 		//reset value for some variable
 		reset(totalHospital, totalSurgery, totalMedicine, totalServices, numServices, totalFood);
-
 
 		cout << "Patient Name: ";   //User input name
 		getline(cin, name);
@@ -41,11 +33,8 @@ int main()
 		cout << "Patient ID Num: ";	//User input Patient ID
 		cin >> id;
 
-
-
-		do
-		{
-
+		 while (choice != 0){
+		 
 			showMenu();//display menu for admin and prompt admin to choose a charge
 			cin >> choice;//get choice by admin
 
@@ -74,8 +63,7 @@ int main()
 				cout << "Invalid Choice Please Enter Your Choice Again." << endl; //Invalid Input
 				break;
 			}
-
-		} while (choice != 0); //check validation of choice
+		 }
 
 		//ask admin whether there is another patient to check out
 		cout << "Is there other Patients(Y/N): ";
@@ -83,13 +71,12 @@ int main()
 		cin.ignore();
 		cout << endl;
 
-	} while (pass == 'Y' || pass == 'y');//check is there any patient
-}
+	} 
+
 
 
 //function defination for showMenu()
-void showMenu()
-{
+	void showMenu(){
 	//display menu 
 	cout << "\t\t\tWelcome to CPT 111 Group 71 Hospital" << endl;
 
@@ -112,15 +99,9 @@ void hospitalstayMenu(int& chargeStay)
 	int choice1 = 0, day;
 
 	//Display type of room for hospital
-	cout << "\t\t\t\tHospital Stay Charge " << endl;
-
-	for (int i = 0; i < 100; i++)
-	{
-		cout << "-";
-	}
-	cout << endl << endl;
-
-	cout << "1.	4-Bed Room		$100\n2.	Twin Sharing Room	$125\n3.	Premium Twin Room	$150\n4.	Deluxe Room		$180\n5.	Premium Deluxe Room	$230\n" << endl;
+		cout << "\t\t\t\tHospital Stay Charge " << endl;
+	    cout << "------------------------------------------------------------------------------------------"<< endl << endl;
+	    cout << "1.	4-Bed Room		$100\n2.	Twin Sharing Room	$125\n3.	Premium Twin Room	$150\n4.	Deluxe Room		$180\n5.	Premium Deluxe Room	$230\n" << endl;
 
 	//loop while user input invalid choice
 	do
@@ -131,26 +112,13 @@ void hospitalstayMenu(int& chargeStay)
 		cin >> day;
 
 		//add the price based on the room and day enter by user to chargeStay
-		switch (choice1)
-		{
-		case 1:
-			chargeStay += 100 * day;
-			break;
-		case 2:
-			chargeStay += 125 * day;
-			break;
-		case 3:
-			chargeStay += 150 * day;
-			break;
-		case 4:
-			chargeStay += 180 * day;
-			break;
-		case 5:
-			chargeStay += 230 * day;
-			break;
-		default:
-			cout << endl << "Invalid Choice Please Enter Your Choice Again." << endl << endl; //Inform admin invalid input 
-			break;
+		switch (choice1){
+		case 1:chargeStay += 100 * day;break;
+		case 2:chargeStay += 125 * day;break;
+		case 3:chargeStay += 150 * day;break;
+		case 4:chargeStay += 180 * day;break;
+		case 5:chargeStay += 230 * day;break;
+		default:cout << endl << "Invalid Choice Please Enter Your Choice Again."  << endl << endl;break; //Inform admin invalid input 
 		}
 	} while (choice1 < 1 || choice1>5);//check validation of the choice1
 	cout << endl;
