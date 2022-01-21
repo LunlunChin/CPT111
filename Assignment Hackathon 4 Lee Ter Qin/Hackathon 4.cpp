@@ -3,6 +3,8 @@
 
 using namespace std;
 
+
+//creating a data structure for patient
 struct Patient
 {
 	string Name = "";
@@ -17,6 +19,7 @@ struct Patient
 	
 };
 
+// all function prototype
 void HomeMenu();
 
 void KeyInData(Patient*, int);
@@ -34,15 +37,17 @@ void foodMenu(int&);
 
 int main()
 {
-	int size;
+	//creating a variable  to hold the size or data structure
+	int size, choiceHome;
 
 	cout << "Please Enter The Number of Patient: ";
 	cin >> size;
 
+	//Creating a dynamic allocated Structure array
 	Patient* todayPatient = nullptr;
 	todayPatient = new Patient[size];
 
-	
+	//checking whethere all element has been initialize
 	for (int c = 0; c < size; c++)
 	{
 		cout << todayPatient[c].Name << endl;
@@ -55,32 +60,38 @@ int main()
 		cout << todayPatient[c].Medication << endl;
 		cout << todayPatient[c].numServices << endl;
 	}
-
-	int choiceHome;
-
+	//calling homemenu function--> display home menu
 	HomeMenu();
 
+	//enter choice based on home menu
 	cin >> choiceHome;
+
+	//loop if the input is invalid input
 	while (choiceHome < 0 || choiceHome>4)
 	{
+		//prompt user to enter again the choice
 		cout << "Error || Invalid Choice Please Enter Again." << endl;
 		cout << "Choice :";
 		cin >> choiceHome;
 	}
 
+	//doing certain function based on the choice input
 	switch (choiceHome)
 	{
 	case 1:
+		//calling keyindata function to key in the patient details and charge
 		KeyInData(todayPatient, size);
-		
-		
 	case 2:
+		//calling searchpatient function to search for the patient total charge
 		SearchPatient(todayPatient, size);
 	case 3:
+		//calling totalcharge function to display total charge for each catagories and total charge for all patient
 		TotalCharge(todayPatient, size);
 	case 4:
+		//calling lowerheight function to display lowest charge patient and highest charge patient
 		LowerHighest(todayPatient, size);
 	case 0:
+		//checking the data is correct or no
 		for (int c = 0; c < size; c++)
 		{
 		cout << todayPatient[c].Name << endl;
@@ -95,19 +106,23 @@ int main()
 		}
 		exit(0);
 	default:
+		//display error message
 		cout << "Error|| Invalid Input.";
 		break;
 	}
 
-
+	//delete the pointer
 	delete[] todayPatient;
+	//set pointer to nullptr
 	todayPatient = nullptr;
 
 	return 0;
 }
 
+//duntion defination for HomeMenu Function
 void HomeMenu()
 {
+	//content of home menu
 	cout << endl;
 	cout << "\t\t\tWelcome to CPT 111 Group 71 Hospital\n" << endl;
 	cout << "1.\tKey In Data" << endl;
@@ -118,21 +133,23 @@ void HomeMenu()
 	cout << endl << "Choice : ";
 }
 
+//Funtion defination foe KeyInData Function
 void KeyInData(Patient* data, int size)
 {
 	int menuChoice;
 
 	for (int c = 0; c < size; c++)
 	{
+		//ignore the input buffer
 		cin.ignore();
+		//prompt user to enter the details of patient
 		cout << "\nPatient(" << c + 1 << ")\n" << endl;
 		cout << "Name: ";
 		getline(cin, data[c].Name);
-		cout << "ID(yymmdd ";
+		cout << "ID: ";
 		cin >> data[c].ID;
 		do
 		{
-
 			ChargeMenu();//display menu for admin and prompt admin to choose a charge
 			cin >> menuChoice;//get choice by admin
 
@@ -165,25 +182,32 @@ void KeyInData(Patient* data, int size)
 	}
 }
 
+//Funtion defination foe SearchPatient Function
 void SearchPatient(Patient* data, int size)
 {
+	//create variable for the function
 	string search;
 	int index;
 	bool Founded = false;
 
-	cout << "Please Enter Patient Name(E to exit): ";
+	//prompt user to enter the patient name to be search
+	cout << "Please Enter Patient Name: ";
 	cin.ignore();
 	getline(cin,search);
 
+	//seach for the patient name
 	for ( int i = 0; i < size; i++)
 	{
+		//set theindex to the current position and set founded to true 
 		if (search == data[i].Name)
 		{
 			Founded = true;
 			index = i;
+			break;
 		}
 	}
 	
+	//display the patient details
 	if (Founded)
 	{
 		cout << "Name: " << data[index].Name << endl;
@@ -195,6 +219,7 @@ void SearchPatient(Patient* data, int size)
 		cout << "Surgery Charge: " << data[index].Surgery << "$" << endl;
 		cout << "Total Charge: " << data[index].Charge << "$" << endl;
 	}
+	//Display error message
 	else
 	{
 		cout << "Cant Found The Patient" << endl;
@@ -202,14 +227,18 @@ void SearchPatient(Patient* data, int size)
 
 }
 
+
+//Funtion defination for TotalChrage Function
 void TotalCharge(Patient* data, int size)
 {
+	//declare and intialize the variable to 0
 	int total_Charge = 0,
 		total_HospitalCharge = 0,
 		total_Surgery = 0,
 		total_Medication = 0,
 		total_Service = 0;
 
+	//adding the charge of each catogories for all patient
 	for (int c = 0; c < size; c++)
 	{
 		total_HospitalCharge += data[c].HospitalStay;
@@ -218,8 +247,10 @@ void TotalCharge(Patient* data, int size)
 		total_Surgery += data[c].Surgery;
 	}
 
+	//calculating the total charge for all patient
 	total_Charge = total_HospitalCharge + total_Surgery + total_Medication + total_Service;
-
+	
+	//display total charge for all patient
 	cout << "Total Hospital Charge: " << total_HospitalCharge << endl;
 	cout << "Total Medication Charge: " << total_Medication << endl;
 	cout << "Total Services Charge: " << total_Service << endl;
@@ -227,18 +258,33 @@ void TotalCharge(Patient* data, int size)
 	cout << "Total Charge: " << total_Charge << endl;
 }
 
+
+//Funtion defination for LowestHigest Function
 void LowerHighest(Patient* data, int size)
 {
+	//declare and initialize variable for function
 	int low = 99999, high = -999999,
+		//function to hold the index at the higest and lowest charge position
 		LowIndex, HighIndex;
+
+	//loop to find the lowest and highest price
 	for (int i = 0; i < size; i++)
 	{
-		if (data[i].Charge < low)
+		//checking the charge is lowwe than the current lowest charge if true set the lowindex to the current loop index and change the lowest charge value
+		if (data[i].Charge < low) {
 			LowIndex = i;
+			low = data[i].Charge;
+		}
+		//checking the charge is higher than the current higest charge if true set the highindex to the current loop index and change the highest charge value
 		if (data[i].Charge > high)
+		{
 			HighIndex = i;
+			high = data[i].Charge;
+		}
+			
 	}
 
+	//display the highest and lowest charge patient
 	cout << "\n\nLowest Charge" << endl;
 	cout << "Name: " << data[LowIndex].Name << endl;
 	cout << "ID: " << data[LowIndex].ID << endl;
@@ -252,19 +298,25 @@ void LowerHighest(Patient* data, int size)
 
 }
 
+
+
+//Funtion defination for ChargeMenu Function
 void ChargeMenu()
 {
+
 	for (int i = 0; i < 100; i++)
 	{
 		cout << "-";
 	}
 	cout << endl << endl;
 
+	//display the type of charge in the hospital
 	cout << "\t\t\t\tTYPE OF CHARGE" << endl << endl;
 	cout << "1. Hospital Stay Charge\n2. Surgery Charge\n3. Medication Charge\n4. Services Charge\n5. Food Charges\n0. Next" << endl << endl;
 	cout << "Choice: ";
 }
 
+//Funtion defination for hospitalstayMenu Function
 void hospitalstayMenu(int& chargeStay)
 {
 
