@@ -580,7 +580,7 @@ void serviceMenu(int& chargeService, int& Services)
 			chargeService += 20683;
 			break;
 		case 4:
-			chargeService += 6720;
+			chargeService += 5700;
 			break;
 		case 5:
 			chargeService += 9000;
