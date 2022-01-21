@@ -16,15 +16,16 @@ void reset(int&, int&, int&, int&, int&, int&);
 void displayDayCharge(string [], int [], int [],int [],int [],int [],int [],int []);
 
 
-int dayTotalHospital[10];
-int dayTotalSurgery[10];
-int dayTotalMedicine[10];
-int dayTotalServices[10];
-int dayTotalFood[10];
-int dayTotal[10];
 
-string patientName[10];
-int patientID[10];
+int dayTotalHospital[5];
+int dayTotalSurgery[5];
+int dayTotalMedicine[5];
+int dayTotalServices[5];
+int dayTotalFood[5];
+int dayTotal[5];
+
+string patientName[5];
+int patientID[5];
 
 int main(){
     
@@ -334,6 +335,5 @@ int i=0;
 
 				cout << "Patient that pays the highest bill: $ "  << patientName[index] << endl;
 				cout << "Patient that pays the lowest bill: $ "  << patientName[index2]<< endl;
-
 				cout<<"============================================================================================================================================================\n";
 			}
