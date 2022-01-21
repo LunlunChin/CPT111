@@ -109,8 +109,13 @@ int main()
 				cout << "Surgery Charge: " << todayPatient[c].Surgery << " $" << endl << endl;
 				cout << "Total Charge: " << todayPatient[c].Charge << " $" << endl << endl;
 			} 
+			cout << "\nPlease Enter to Back To Home Menu";
+			cin.get();
+			system("cls");
+			break;
 		case 0:
 			exit(0);
+			break;
 		default:
 			//display error message
 			cout << "Error|| Invalid Input.";
@@ -265,7 +270,8 @@ void TotalCharge(Patient* data, int size)
 		total_HospitalCharge = 0,
 		total_Surgery = 0,
 		total_Medication = 0,
-		total_Service = 0;
+		total_Service = 0,
+		average;
 
 	//adding the charge of each catogories for all patient
 	for (int c = 0; c < size; c++)
@@ -278,6 +284,8 @@ void TotalCharge(Patient* data, int size)
 
 	//calculating the total charge for all patient
 	total_Charge = total_HospitalCharge + total_Surgery + total_Medication + total_Service;
+	average = total_Charge / size;
+
 	
 	//display total charge for all patient
 	cout << "\nTotal Hospital Charge: " << total_HospitalCharge << " $" << endl;
@@ -285,6 +293,7 @@ void TotalCharge(Patient* data, int size)
 	cout << "Total Services Charge: " << total_Service << " $" << endl;
 	cout << "Total Surgery Charge: " << total_Surgery << " $" << endl ;
 	cout << "\nTotal Charge: " << total_Charge << " $" << endl;
+	cout << "Average Charge For Each Patient is " << average << " $" << endl;
 }
 
 
@@ -389,6 +398,10 @@ void hospitalstayMenu(int& chargeStay)
 		cin >> choice1;
 		cout << "How many day patient stay: ";	//User input number of days spent in hospital
 		cin >> day;
+
+		//reset the chargeStay due to user might enter the wrong input
+		if (chargeStay > 0)
+			chargeStay = 0;
 
 		//add the price based on the room and day enter by user to chargeStay
 		switch (choice1)
