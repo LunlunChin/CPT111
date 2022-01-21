@@ -11,6 +11,7 @@ struct Patient
 		   ID = " ";
 	int Charge = 0,
 		HospitalStay = 0,
+		day,
 		Food = 0,
 		Surgery = 0,
 		Medication = 0,
@@ -28,7 +29,7 @@ void TotalCharge(Patient*, int);
 void LowerHighest(Patient*, int);
 
 void ChargeMenu();
-void hospitalstayMenu(int&);
+void hospitalstayMenu(int&, int&);
 void surgeryMenu(int&);
 void medicineyMenu(int&);
 void serviceMenu(int&, int&);
@@ -102,6 +103,7 @@ int main()
 			{
 				cout << "Name: " << todayPatient[c].Name << endl;
 				cout << "ID: " << todayPatient[c].ID << endl << endl;
+				cout << "Number Of Day Stay: " << todayPatient[c].day << endl;
 				cout << "Hospital Stay Charge: " << todayPatient[c].HospitalStay << " $" << endl << endl;
 				cout << "Number of Services Taken: " << todayPatient[c].numServices << endl;
 				cout << "Services Charge: " << todayPatient[c].Services << " $" << endl << endl;
@@ -178,7 +180,7 @@ void KeyInData(Patient* data, int size)
 			switch (menuChoice)   		// Informative menu for user
 			{
 			case 1:
-				hospitalstayMenu(data[c].HospitalStay);  //Menu 1 --> Hospital stay charges function call
+				hospitalstayMenu(data[c].HospitalStay, data[c].day);  //Menu 1 --> Hospital stay charges function call
 				system("cls");
 				break;
 			case 2:
@@ -268,15 +270,19 @@ void TotalCharge(Patient* data, int size)
 	//declare and intialize the variable to 0
 	int total_Charge = 0,
 		total_HospitalCharge = 0,
+		total_HospitalStay = 0,
 		total_Surgery = 0,
 		total_Medication = 0,
-		total_Service = 0,
-		average;
+		total_Service = 0;
+	double averagestay;
+
+
 
 	//adding the charge of each catogories for all patient
 	for (int c = 0; c < size; c++)
 	{
 		total_HospitalCharge += data[c].HospitalStay;
+		total_HospitalStay += data[c].day;
 		total_Medication += data[c].Medication;
 		total_Service += data[c].Services;
 		total_Surgery += data[c].Surgery;
@@ -284,8 +290,7 @@ void TotalCharge(Patient* data, int size)
 
 	//calculating the total charge for all patient
 	total_Charge = total_HospitalCharge + total_Surgery + total_Medication + total_Service;
-	average = total_Charge / size;
-
+	averagestay = static_cast<double>(total_HospitalStay) / static_cast<double>(size);
 	
 	//display total charge for all patient
 	cout << "\nTotal Hospital Charge: " << total_HospitalCharge << " $" << endl;
@@ -293,7 +298,7 @@ void TotalCharge(Patient* data, int size)
 	cout << "Total Services Charge: " << total_Service << " $" << endl;
 	cout << "Total Surgery Charge: " << total_Surgery << " $" << endl ;
 	cout << "\nTotal Charge: " << total_Charge << " $" << endl;
-	cout << "Average Charge For Each Patient is " << average << " $" << endl;
+	cout << "Average Hospital Stay For a Patient is " << averagestay << " per Patient" << endl;
 }
 
 
@@ -367,12 +372,12 @@ void ChargeMenu()
 }
 
 //Funtion defination for hospitalstayMenu Function
-void hospitalstayMenu(int& chargeStay)
+void hospitalstayMenu(int& chargeStay, int& dayStay)
 {
 	cout << "\t\t\tWelcome to CPT 111 Group 71 Hospital" << endl;
 
 	//declare and create variable to get choice and day from admin
-	int choice1 = 0, day;
+	int choice1 = 0;
 
 	for (int i = 0; i < 100; i++)
 	{
@@ -397,7 +402,7 @@ void hospitalstayMenu(int& chargeStay)
 		cout << "What room have patient take: "; //User input room type
 		cin >> choice1;
 		cout << "How many day patient stay: ";	//User input number of days spent in hospital
-		cin >> day;
+		cin >> dayStay;
 
 		//reset the chargeStay due to user might enter the wrong input
 		if (chargeStay > 0)
@@ -407,19 +412,19 @@ void hospitalstayMenu(int& chargeStay)
 		switch (choice1)
 		{
 		case 1:
-			chargeStay += 100 * day;
+			chargeStay += 100 * dayStay;
 			break;
 		case 2:
-			chargeStay += 125 * day;
+			chargeStay += 125 * dayStay;
 			break;
 		case 3:
-			chargeStay += 150 * day;
+			chargeStay += 150 * dayStay;
 			break;
 		case 4:
-			chargeStay += 180 * day;
+			chargeStay += 180 * dayStay;
 			break;
 		case 5:
-			chargeStay += 230 * day;
+			chargeStay += 230 * dayStay;
 			break;
 		default:
 			cout << endl << "Invalid Choice Please Enter Your Choice Again." << endl << endl; //Inform admin invalid input 
